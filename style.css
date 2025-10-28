@@ -106,6 +106,12 @@ button:hover {
 ;
 }
 
+/* Make the primary 'Get Space Images' button text bolder for emphasis */
+#getImageBtn {
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
 /* Stack horizontally on wider screens */
 @media (min-width: 600px) {
   .filters {
