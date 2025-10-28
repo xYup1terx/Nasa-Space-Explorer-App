@@ -14,19 +14,21 @@ body {
   padding: 20px;
 }
 
-/* Inline meatball logo placed inside the header */
+/* Meatball sizing — make the rule robust so deployed CSS can't easily override it */
 .meatball {
-  width: 120px;
+  width: 120px;        /* desired base size */
+  max-width: 30%;      /* won't exceed 30% of header width on narrow screens */
   height: auto;
-  margin-right: 12px;
   display: inline-block;
+  flex: 0 0 auto;      /* prevents flex parents from stretching it */
+  object-fit: contain;
 }
 
-/* Responsive sizing for the meatball logo */
+/* Keep it responsive and avoid it growing unexpectedly */
 @media (max-width: 768px) {
   .meatball {
     width: 92px;
-    margin-right: 10px;
+    max-width: 28%;
   }
 }
 
@@ -39,7 +41,7 @@ body {
   }
   .meatball {
     width: 80px;
-    margin-right: 0;
+    max-width: 40%;
   }
 }
 
