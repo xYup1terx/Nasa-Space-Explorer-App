@@ -8,7 +8,9 @@
 /* Base page styles */
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background-color: #d6d7d9;
+  /* solid background color */
+  background: #323a45;
+  min-height: 100vh; /* ensure gradient covers full viewport */
   padding: 20px;
 }
 
@@ -30,7 +32,7 @@ body {
 
 h1 {
   font-weight: bold;
-  color: #212121;
+  color: #ffffff;
 }
 
 /* Logo */
@@ -102,10 +104,11 @@ button:hover {
   flex: 1 1 100%;  /* full width by default */
   min-width: 280px;
   max-width: 500px;
-  background: white;
+  background:linear-gradient(#061f4a 30%, #0b3d91, #105bd8);
+  color: #ffffff;
   padding: 10px;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px #0000001a;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -155,7 +158,7 @@ button:hover {
 
 /* Hover effect: change background to the requested blue, lift the card slightly and invert text color */
 .gallery-item:hover {
-  background: #105bd8;
+  background: #99231b;
   color: #ffffff;
   transform: translateY(-6px);
   box-shadow: 0 8px 20px rgba(16,91,216,0.18);
@@ -184,12 +187,76 @@ button:hover {
   flex: 1 1 100%;
   text-align: center;
   padding: 40px;
-  color: #666;
+  color: #ffffff;
+  font-size: 20px;
+  line-height: 1.4;
+  position: relative; /* needed for the shine pseudo-element */
+  overflow: hidden;   /* clip the shine */
+  /* run the pulse+color animation once on page load */
+  animation: placeholder-pulse-shine 1.6s ease both;
 }
 
 .placeholder-icon {
   font-size: 48px;
   margin-bottom: 20px;
+}
+
+/* One-time shine overlay and pulse animation for placeholder at page startup */
+.placeholder::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+  /* subtle blue-white diagonal shimmer */
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(80,170,255,0.45) 50%, rgba(255,255,255,0) 100%);
+  transform: translateX(-120%);
+  filter: blur(8px);
+  animation: placeholder-shine 1.0s ease 0.35s both; /* delayed to sync with pulsing */
+}
+
+@keyframes placeholder-pulse-shine {
+  0% {
+    transform: scale(1);
+    color: #ffffff;
+    opacity: 1;
+  }
+  30% {
+    transform: scale(1.02);
+    color: #7fd3ff; /* light blue */
+  }
+  50% {
+    transform: scale(1.04);
+    color: #00a6d2; /* bright blue */
+  }
+  80% {
+    transform: scale(1.02);
+    color: #7fd3ff;
+  }
+  100% {
+    transform: scale(1);
+    color: #ffffff; /* return to white */
+  }
+}
+
+@keyframes placeholder-shine {
+  0% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.6;
+  }
+  60% {
+    transform: translateX(40%);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateX(160%);
+    opacity: 0;
+  }
 }
 
 /* Fun fact box shown above the gallery */
