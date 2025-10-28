@@ -1,0 +1,295 @@
+/* Global reset & box sizing */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Base page styles */
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background-color: #d6d7d9;
+  padding: 20px;
+}
+
+/* Centered container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-weight: bold;
+  color: #212121;
+}
+
+/* Logo */
+.logo {
+  width: 140px;
+  margin-right: 15px;
+}
+
+/* Date‐picker & button row */
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+  padding: 0 20px;
+}
+
+/* Inputs and buttons */
+input[type="date"],
+button {
+  font-family: inherit;
+  font-weight: normal;
+  color: #666;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  line-height: 1.4;
+  width: 100%;
+}
+
+/* Button specific */
+button {
+  background-color: #00a6d2;
+  color: #212121;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #02bfe7;
+
+;
+}
+
+/* Stack horizontally on wider screens */
+@media (min-width: 600px) {
+  .filters {
+    flex-direction: row;
+    padding: 0;
+  }
+  
+  input[type="date"],
+  button {
+    width: auto;
+  }
+}
+
+/* Gallery flex container */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  justify-content: center;
+}
+
+/* Gallery items */
+.gallery-item {
+  flex: 1 1 100%;  /* full width by default */
+  min-width: 280px;
+  max-width: 500px;
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 220ms ease, transform 160ms ease, box-shadow 160ms ease, color 220ms ease;
+  /* fixed card height so all cards align */
+  height: 380px;
+}
+
+/* Three columns on wider screens */
+@media (min-width: 1000px) {
+  .gallery-item {
+    flex: 0 1 31%;
+  }
+}
+
+.media-wrapper {
+  /* media area takes available space and keeps image/video contained */
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+.media-wrapper img,
+.media-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+  transition: transform 350ms cubic-bezier(.2,.8,.2,1);
+  transform-origin: center center;
+}
+
+/* Footer that holds title/date aligned to bottom of card */
+.card-footer {
+  margin-top: auto; /* push footer to bottom */
+  padding-top: 6px;
+}
+
+/* Ensure text inside a card inherits the card color so it inverts on hover */
+.gallery-item h3,
+.gallery-item p {
+  color: inherit;
+}
+
+/* Hover effect: change background to the requested blue, lift the card slightly and invert text color */
+.gallery-item:hover {
+  background: #105bd8;
+  color: #ffffff;
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(16,91,216,0.18);
+}
+
+/* Gradual zoom for media inside the card on hover */
+.gallery-item:hover .media-wrapper img,
+.gallery-item:hover .media-wrapper iframe {
+  transform: scale(1.08);
+}
+
+/* Make any links or buttons inside cards readable on the blue background */
+.gallery-item a,
+.gallery-item button {
+  color: inherit;
+}
+
+.gallery-item p {
+  margin-top: 10px;
+  padding: 5px;
+  font-size: 14px;
+}
+
+/* Placeholder content */
+.placeholder {
+  flex: 1 1 100%;
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
+
+.placeholder-icon {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+
+/* Fun fact box shown above the gallery */
+.funFact {
+  background: linear-gradient(#061f4a, #0b3d91, #105bd8);
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin: 0 0 16px 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  font-size: 15px;
+  color: #ffffff;
+  text-align: center;
+  border: 3px solid #c62d1f;
+}
+
+/* Pulse animation for the fun fact when the page loads */
+@keyframes pulse-in {
+  0% {
+    transform: scale(0.98);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.03);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.funFact.pulse {
+  animation: pulse-in 700ms cubic-bezier(.2,.8,.2,1) both;
+}
+
+/* Modal styles */
+.modal {
+  display: none; /* hidden by default */
+  position: fixed;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal.open {
+  display: flex;
+}
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+}
+.modal-content {
+  position: relative;
+  background: #fff;
+  max-width: 900px;
+  width: calc(100% - 40px);
+  max-height: 90vh;
+  overflow: auto;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  z-index: 1010;
+  display: flex;
+  flex-direction: column;
+}
+.modal-close {
+  position: absolute;
+  right: 10px;
+  top: 6px;
+  background: transparent;
+  border: none;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+.modal-media {
+  width: 100%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-media img {
+  width: 100%;
+  height: auto;
+  max-height: 60vh;
+  object-fit: contain;
+}
+.modal-media iframe {
+  width: 100%;
+  height: 60vh;
+  border: 0;
+}
+.modal-body {
+  padding: 18px 22px 28px;
+}
+.modal-body h2 {
+  margin-bottom: 6px;
+}
+.modal-meta {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
