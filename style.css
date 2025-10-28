@@ -14,6 +14,39 @@ body {
   padding: 20px;
 }
 
+/* Top-left corner logo (meatball). Keep small and non-interactive */
+.corner-logo {
+  position: fixed;
+  top: 25px;
+  left: 25px;
+  width: 140px; /* bigger as requested */
+  height: auto;
+  z-index: 1200; /* above other content */
+  pointer-events: none; /* don't block clicks */
+  user-select: none;
+}
+
+/* Hide the corner logo on smaller viewports to prevent obstruction */
+@media (max-width: 685px) {
+  .corner-logo {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  /* On small screens move the logo out of the top-left area to avoid overlapping the header
+     and other page elements: place it bottom-right, reduce size and slightly lower z-index. */
+  .corner-logo {
+    width: 64px;
+    left: auto;
+    right: 12px;
+    top: auto;
+    bottom: 12px;
+    z-index: 800; /* lower so it doesn't occlude UI like modals or headers */
+    opacity: 0.95;
+  }
+}
+
 /* Centered container */
 .container {
   max-width: 1200px;
